@@ -1,0 +1,89 @@
+body {
+  padding: 0 0 100px;
+  font-family: 'Cascadia Code', monospace;
+  color: rgb(188, 185, 184);
+  background-color: rgb(30, 30, 30);
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+}
+
+a {
+  text-decoration: none;
+}
+
+table {
+  text-align: left!important;
+  margin-top: 0;
+  color: rgb(188, 185, 184)!important;
+}
+
+th, td {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.max-width-1200px {
+  max-width: 1200px
+}
+
+.max-width-600px {
+  max-width: 600px
+}
+
+.handwritten-font {
+  font-family: 'Permanent Marker';
+}
+
+.color-white {
+  color: rgb(188, 185, 184);
+}
+
+.color-btc {
+  color: rgb(213, 142,66);
+}
+
+.color-eth {
+  color: rgb(51, 94, 170);
+}
+
+.color-winner {
+  color: rgb(90, 179, 126);
+}
+
+.color-loser {
+  color: rgb(188, 185, 184);
+  background-color: rgb(165, 57, 53)!important;
+}
+
+#spinnerContainer {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: block;
+  opacity: 0.7;
+  background-color: #f5f5f5;
+  z-index: 99;
+  text-align: center;
+}
+
+#spinner {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+#spinnerText {
+  color: #b75b63;
+}
+

@@ -1,0 +1,24 @@
+{
+  "name": "did-it-beat-eth",
+  "version": "1.0.0",
+  "description": "did my alts outperform eth",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Larrypcdotcom/did-it-beat-eth.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Larrypcdotcom/did-it-beat-eth/issues"
+  },
+  "homepage": "https://github.com/Larrypcdotcom/did-it-beat-eth#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}

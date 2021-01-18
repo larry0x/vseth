@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
+      rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/cascadia-code.min.css"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main.css">
+    <title>Did it beat ETH?</title>
+  </head>
+  <body>
+    <div style="display: none" id="spinnerContainer">
+      <div id="spinner">
+        <img src="images/Spin-1s-200px.gif" alt="Loading..." />
+        <h1 id="spinnerText">fetching price data...
+          <span id="indexCurrent">2</span>/<span id="indexTotal">40</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="container-fluid text-center mt-5 mb-5">
+      <h3 class="text-danger handwritten-font">🤔 Did my alts outperform ETH? 🤔</h3>
+    </div>
+
+    <div class="container-fluid max-width-1200px text-center">
+      <div class="row">
+        <div class="col-4">
+          <table class="table table-borderless p-0 mt-3 color-white mb-2 text-start">
+            <tr>
+              <td class="pe-3">
+                currency:
+              </td>
+              <td class="pb-2">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyUsd" value="usd">
+                  <label class="form-check-label" for="currencyUsd">usd</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyCad" value="eur">
+                  <label class="form-check-label" for="currencyEur">cad</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyGbp" value="gbp">
+                  <label class="form-check-label" for="currencyGbp">gbp</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyAud" value="aud">
+                  <label class="form-check-label" for="currencyAud">aud</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyEur" value="eur">
+                  <label class="form-check-label" for="currencyEur">eur</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyChf" value="chf">
+                  <label class="form-check-label" for="currencyChf">chf</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyJpy" value="jpy">
+                  <label class="form-check-label" for="currencyJpy">jpy</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyKrw" value="krw">
+                  <label class="form-check-label" for="currencyKrw">krw</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyCny" value="cny">
+                  <label class="form-check-label" for="currencyCny">cny</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencySgd" value="sgd">
+                  <label class="form-check-label" for="currencySgd">sgd</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyInr" value="inr">
+                  <label class="form-check-label" for="currencyInr">inr</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyRub" value="rub">
+                  <label class="form-check-label" for="currencyRub">rub</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyBtc" value="btc">
+                  <label class="form-check-label" for="currencyBtc">btc</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyEth" value="eth">
+                  <label class="form-check-label" for="currencyEth">eth</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyRune" value="rune">
+                  <label class="form-check-label" for="currencyRune">rune</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="pe-3">
+                timespan:
+              </td>
+              <td class="pb-2">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="timespan" id="timespan3d" value="3d">
+                  <label class="form-check-label" for="timespan3d">3d</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="timespan" id="timespan7d" value="7d">
+                  <label class="form-check-label" for="timespan7d">7d</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="timespan" id="timespan14d" value="14d">
+                  <label class="form-check-label" for="timespan14d">14d</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="timespan" id="timespan30d" value="30d">
+                  <label class="form-check-label" for="timespan30d">30d</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="timespan" id="timespan90d" value="90d">
+                  <label class="form-check-label" for="timespan90d">90d</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="timespan" id="timespan180d" value="180d">
+                  <label class="form-check-label" for="timespan180d">180d</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="timespan" id="timespanYtd" value="ytd">
+                  <label class="form-check-label" for="timespanYtd">ytd</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="timespan" id="timespan1y" value="1y">
+                  <label class="form-check-label" for="timespan1y">1y</label>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <button class="btn btn-lg btn-outline-light mt-4" id="submitBtn">submit</button>
+        </div>
+        <div class="col-8">
+          <div id="tableContainer">
+            <br><br><br><br>
+            results will be displayed here
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center">
+      Created by <a href="https://twitter.com/Larrypcdotcom">@Larrypcdotcom</a>
+      ⟠
+      <a href="https://etherscan.io/tokenholdings?a=0x2536e707eb6121053078518285abc84914b2bfd1">buy me a coffee :)</a>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous">
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous">
+    </script>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
