@@ -26,8 +26,9 @@ var dates = {};
 var coins = [];
 var prices = { today: {}, historical: {} };
 
-var userSelectedCurrency = null;
-var userSelectedTimespan = null;
+var userSelectedCurrency = undefined;
+var userSelectedTimespan = undefined;
+var userCustomDate = "";
 
 var ethMultiple;
 
@@ -92,8 +93,15 @@ const fetchHistoricalPrices = async () => {
   let coin;
   $("#indexTotal").html(coins.length);
 
+  let timespan;
+  if (userSelectedTimespan != "custom") {
+    timespan = dates[userSelectedTimespan];
+  } else {
+    timespan = _formatDate(new Date(userCustomDate));
+  }
+
   if (userSelectedCurrency == "rune") {
-    pricesHistoricalRune = (await $.get(`https://api.coingecko.com/api/v3/coins/thorchain/history?date=${dates[userSelectedTimespan]}`))["market_data"]["current_price"];
+    pricesHistoricalRune = (await $.get(`https://api.coingecko.com/api/v3/coins/thorchain/history?date=${timespan}`))["market_data"]["current_price"];
   }
 
   for (var i = 0; i < coins.length; i++) {
@@ -101,7 +109,7 @@ const fetchHistoricalPrices = async () => {
     $("#indexCurrent").html(i + 1);
 
     try {
-      pricesHistorical = (await $.get(`https://api.coingecko.com/api/v3/coins/${coin.id}/history?date=${dates[userSelectedTimespan]}`))["market_data"]["current_price"];
+      pricesHistorical = (await $.get(`https://api.coingecko.com/api/v3/coins/${coin.id}/history?date=${timespan}`))["market_data"]["current_price"];
 
       if (userSelectedCurrency == "rune") {
         price = pricesHistorical.usd / pricesHistoricalRune.usd;
@@ -109,10 +117,10 @@ const fetchHistoricalPrices = async () => {
         price = pricesHistorical[userSelectedCurrency];
       }
 
-      console.log(`Fetched price of ${coin.symbol.toUpperCase()} on ${dates[timespan]}: ${_formatMoney(price)}`);
+      console.log(`Fetched price of ${coin.symbol.toUpperCase()} on ${timespan}: ${_formatMoney(price)}`);
       prices["historical"][coin.symbol] = price;
     } catch (e) {
-      console.log(`Price not available for ${coin.symbol.toUpperCase()} on ${dates[userSelectedTimespan]}`);
+      console.log(`Price not available for ${coin.symbol.toUpperCase()} on ${timespan}`);
       prices["historical"][coin.symbol] = null;
     }
   }
@@ -225,7 +233,7 @@ $(async () => {
     $(`#currency${currency}`).click(function () {
       console.log(`Currency selected: ${$(this).val()}`);
       userSelectedCurrency = $(this).val();
-    })
+    });
   }
 
   for (timespan of [
@@ -234,8 +242,25 @@ $(async () => {
     $(`#timespan${timespan}`).click(function () {
       console.log(`Timespan selected: ${$(this).val()}`);
       userSelectedTimespan = $(this).val();
-    })
+    });
+    $("#customDateInput").prop("disabled", true);
   }
+
+  $(`#timespanCustom`).click(function () {
+    console.log(`Timespan selected: custom`);
+    userSelectedTimespan = "custom";
+    $("#customDateInput").prop("disabled", false).trigger("change");
+  });
+
+  $("#customDateInput").change(function () {
+    userCustomDate = $(this).val();
+    console.log(`Custom date updated: ${userCustomDate}`);
+    if (!userCustomDate) {
+      $("#submitBtn").prop("disabled", true);
+    } else {
+      $("#submitBtn").prop("disabled", false);
+    }
+  });
 
   $("#currencyUsd").trigger("click");
   $("#timespan90d").trigger("click");
