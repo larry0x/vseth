@@ -140,7 +140,6 @@ const _formatMoney = (number, decPlaces) => {
 };
 
 const _chooseColor = (dp) => {
-  console.log(dp, ethMultiple);
   if (dp[0] == "BTC") return "btc";
   else if (dp[0] == "ETH") return "eth";
   else {
