@@ -170,7 +170,7 @@ const _newRow = (symbol, priceHistorical, priceToday, multiple, color = "white")
       <td><span class="color-${color}">${symbol.toUpperCase()}</span></td>
       <td><span class="color-${color}">${_formatMoney(priceHistorical)}</span></td>
       <td><span class="color-${color}">${_formatMoney(priceToday)}</span></td>
-      <td><span class="color-${color}">${multiple.toFixed(1)}</span></td>
+      <td><span class="color-${color}">${multiple.toFixed(2)}x</span></td>
     </tr>
   `;
 };
