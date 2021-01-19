@@ -34,7 +34,7 @@
       <div id="spinner">
         <img src="images/Spin-1s-200px.gif" alt="Loading..." />
         <h1 id="spinnerText">fetching price data...
-          <span id="indexCurrent">2</span>/<span id="indexTotal">40</span>
+          <span id="indexCurrent"></span>/<span id="indexTotal"></span>
         </h1>
       </div>
     </div>
@@ -181,7 +181,15 @@
           </p>
         </div>
         <div class="col-8">
+          <div class="mb-5">
+            <button class="btn btn-outline-light" id="defiTokensBtn">defi tokens</button>
+            <button class="btn btn-outline-light" id="smartContractPlatformsBtn">other smart contract platforms</button>
+          </div>
           <div id="tableContainer">
+            <br><br><br><br>
+            results will be displayed here
+          </div>
+          <div style="display: none;" id="table2Container">
             <br><br><br><br>
             results will be displayed here
           </div>

@@ -23,13 +23,19 @@ const currencySymbols = {
 const today = new Date();
 
 var dates = {};
+
 var coins = [];
+var tableContainer = undefined;
+
 var prices = { today: {}, historical: {} };
+var betas = {};
 
 var userSelectedCurrency = undefined;
 var userSelectedTimespan = undefined;
 var userCustomDate = "";
 
+var ethHistory;
+var ethVariance;
 var ethMultiple;
 
 //------------------------------------------------------------------------------
@@ -81,6 +87,7 @@ const fetchCurrentPrices = async () => {
   pricesToday = await $.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds}&vs_currencies=usd%2C${userSelectedCurrency}`);
 
   for (var i = 0; i < coins.length; i++) {
+    console.log(coins[i].id, coins[i].symbol);
     if (userSelectedCurrency == "rune") {
       prices["today"][coins[i].symbol] = pricesToday[coins[i].id].usd / pricesToday["thorchain"].usd;
     } else {
@@ -212,7 +219,7 @@ const renderTable = () => {
   }
 
   content += "</tbody></table>";
-  $("#tableContainer").html(content);
+  tableContainer.html(content);
 };
 
 //------------------------------------------------------------------------------
@@ -222,9 +229,6 @@ const renderTable = () => {
 $(async () => {
   dates = getDates(new Date());
   console.log("Generates dates\n", dates);
-
-  coins = await $.get("js/coins.json");
-  console.log("Fetched a list of coins\n", coins);
 
   for (currency of [
     "Usd", "Cad", "Gbp", "Aud", "Eur", "Chf", "Jpy", "Krw", "Cny",
@@ -262,9 +266,6 @@ $(async () => {
     }
   });
 
-  $("#currencyUsd").trigger("click");
-  $("#timespan90d").trigger("click");
-
   $("#submitBtn").click((event) => {
     event.preventDefault();
     _showSpinner();
@@ -273,4 +274,32 @@ $(async () => {
     .then(renderTable)
     .then(_hideSpinner);
   });
+
+  $("#defiTokensBtn").click(async (event) => {
+    event.preventDefault();
+
+    $("#tableContainer").show();
+    $("#table2Container").hide();
+
+    coins = await $.get("js/coins.json");
+    console.log("Fetched a list of coins\n", coins);
+
+    tableContainer = $("#tableContainer");
+  });
+
+  $("#smartContractPlatformsBtn").click(async (event) => {
+    event.preventDefault();
+
+    $("#tableContainer").hide();
+    $("#table2Container").show();
+
+    coins = await $.get("js/coins2.json");
+    console.log("Fetched a list of coins\n", coins);
+
+    tableContainer = $("#table2Container");
+  });
+
+  $("#currencyUsd").trigger("click");
+  $("#timespan90d").trigger("click");
+  $("#defiTokensBtn").trigger("click");
 });
