@@ -67,6 +67,14 @@ th, td {
   45%, 55% { fill: orange; }
 }
 
+svg {
+  fill: rgb(188, 185, 184);;
+}
+
+svg:hover {
+  fill: #54e1c5;
+}
+
 svg.rotate-color-rainbow {
   animation: rainbowColors 5s infinite;
 }
@@ -100,3 +108,35 @@ svg.rotate-color-orange {
   color: #b75b63;
 }
 
+@keyframes blink {
+  from, to { color: transparent; }
+  50% { color: rgb(188, 185, 184); }
+}
+
+@-moz-keyframes blink {
+  from, to { color: transparent; }
+  50% { color: rgb(188, 185, 184); }
+}
+
+@-webkit-keyframes blink {
+  from, to { color: transparent; }
+  50% { color: rgb(188, 185, 184); }
+}
+
+@-ms-keyframes blink {
+  from, to { color: transparent; }
+  50% { color: rgb(188, 185, 184); }
+}
+
+@-o-keyframes blink {
+  from, to { color: transparent; }
+  50% { color: rgb(188, 185, 184); }
+}
+
+#blinkingCursor {
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
