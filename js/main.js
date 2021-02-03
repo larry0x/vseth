@@ -169,13 +169,12 @@ const _formatPercentage = (number) => {
 };
 
 const _chooseColor = (dp) => {
-
   if (dp[0] == "ETH") return "eth";
-  else if (dp[0] == "BTC" && dp[3] < 1.5 * ethMultiple && dp[3] > 0.5 * ethMultiple) {
+  else if (dp[0] == "BTC" && dp[4] < 1.5 * ethMultiple && dp[4] > 0.5 * ethMultiple) {
     return "btc";
   } else {
-    if (dp[3] >= 1.5 * ethMultiple) return "winner";
-    else if (dp[3] <= 0.5 * ethMultiple) return "loser";
+    if (dp[4] >= 1.5 * ethMultiple) return "winner";
+    else if (dp[4] <= 0.5 * ethMultiple) return "loser";
     else return "white";
   }
 };
@@ -211,7 +210,7 @@ const renderTable = () => {
     }
   }
 
-  ethMultiple = data[0][3];
+  ethMultiple = data[0][4];
 
   data.sort((a, b) => {
     if (a[3] > b[3]) return -1;
