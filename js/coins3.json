@@ -1,0 +1,30 @@
+[
+  { "id": "ethereum", "symbol": "ETH" },
+  { "id": "bitcoin", "symbol": "BTC" },
+
+  { "id": "polkadot", "symbol": "DOT" },
+  { "id": "cardano", "symbol": "ADA" },
+  { "id": "stellar", "symbol": "XLM" },
+  { "id": "eos", "symbol": "EOS" },
+  { "id": "tezos", "symbol": "XTZ" },
+  { "id": "nem", "symbol": "XEM" },
+  { "id": "tron", "symbol": "TRX" },
+  { "id": "cosmos", "symbol": "ATOM" },
+  { "id": "theta-token", "symbol": "THETA" },
+  { "id": "neo", "symbol": "NEO" },
+  { "id": "vechain", "symbol": "VET" },
+  { "id": "iota", "symbol": "MIOTA" },
+  { "id": "filecoin", "symbol": "FIL" },
+  { "id": "solana", "symbol": "SOL" },
+  { "id": "avalanche-2", "symbol": "AVAX" },
+  { "id": "ethereum-classic", "symbol": "ETC" },
+  { "id": "zilliqa", "symbol": "ZIL" },
+  { "id": "waves", "symbol": "WAVES" },
+
+  { "id": "algorand", "symbol": "ALGO" },
+  { "id": "digibyte", "symbol": "DGB" },
+  { "id": "tomochain", "symbol": "TOMO" },
+  { "id": "secret", "symbol": "SCRT" },
+  { "id": "komodo", "symbol": "KMD" },
+  { "id": "fantom", "symbol": "FTM" }
+]

@@ -17,7 +17,8 @@ const currencySymbols = {
   rub: "₽",
   btc: "₿",
   eth: "Ξ",
-  rune: "ᚱ"
+  rune: "ᚱ",
+  dot: ""
 };
 
 const today = new Date();
@@ -109,6 +110,8 @@ const fetchHistoricalPrices = async () => {
 
   if (userSelectedCurrency == "rune") {
     pricesHistoricalRune = (await $.get(`https://api.coingecko.com/api/v3/coins/thorchain/history?date=${timespan}`))["market_data"]["current_price"];
+  } else if (userSelectedCurrency == "dot") {
+    pricesHistoricalDot = (await $.get(`https://api.coingecko.com/api/v3/coins/polkadot/history?date=${timespan}`))["market_data"]["current_price"];
   }
 
   for (var i = 0; i < coins.length; i++) {
@@ -120,6 +123,8 @@ const fetchHistoricalPrices = async () => {
 
       if (userSelectedCurrency == "rune") {
         price = pricesHistorical.usd / pricesHistoricalRune.usd;
+      } else if (userSelectedCurrency == "dot") {
+        price = pricesHistorical.usd / pricesHistoricalDot.usd;
       } else {
         price = pricesHistorical[userSelectedCurrency];
       }
@@ -154,23 +159,35 @@ const _formatMoney = (number, decPlaces) => {
   return currencySymbols[userSelectedCurrency] + formattedNumber;
 };
 
+const _formatPercentage = (number) => {
+  let sign = "";
+  if (number >= 0) sign = "+";
+  else sign = "-";
+
+  let abs = 100 * Math.abs(number);
+  return sign + abs.toFixed(abs >= 1 ? 0 : 1) + "%";
+};
+
 const _chooseColor = (dp) => {
-  if (dp[0] == "BTC") return "btc";
-  else if (dp[0] == "ETH") return "eth";
-  else {
+
+  if (dp[0] == "ETH") return "eth";
+  else if (dp[0] == "BTC" && dp[3] < 1.5 * ethMultiple && dp[3] > 0.5 * ethMultiple) {
+    return "btc";
+  } else {
     if (dp[3] >= 1.5 * ethMultiple) return "winner";
     else if (dp[3] <= 0.5 * ethMultiple) return "loser";
     else return "white";
   }
 };
 
-const _newRow = (symbol, priceHistorical, priceToday, multiple, color = "white") => {
+const _newRow = (symbol, priceHistorical, priceToday, percentage, multiple, color = "white") => {
   return `
     <tr>
       <td><span class="color-${color}">${symbol.toUpperCase()}</span></td>
       <td><span class="color-${color}">${_formatMoney(priceHistorical)}</span></td>
       <td><span class="color-${color}">${_formatMoney(priceToday)}</span></td>
-      <td><span class="color-${color}">${multiple.toFixed(2)}x</span></td>
+      <td><span class="color-${color}">${_formatPercentage(percentage)}</span></td>
+      <td><span class="color-${color}">${multiple.toFixed(1)}x</span></td>
     </tr>
   `;
 };
@@ -181,9 +198,16 @@ const renderTable = () => {
   for (var i = 0; i < coins.length; i++) {
     symbol = coins[i].symbol;
     if (prices["historical"][symbol]) {
+      percentage = prices["today"][symbol] / prices["historical"][symbol] - 1;
       multiple = prices["today"][symbol] / prices["historical"][symbol];
       console.log(`Multiple of ${symbol}: ${multiple.toFixed(1)}`);
-      data.push([ symbol, prices["historical"][symbol], prices["today"][symbol], multiple ]);
+      data.push([
+        symbol,
+        prices["historical"][symbol],
+        prices["today"][symbol],
+        percentage,
+        multiple
+      ]);
     }
   }
 
@@ -202,12 +226,14 @@ const renderTable = () => {
           <th scope="col">symbol</th>
           <th scope="col">prices-${userSelectedTimespan}</th>
           <th scope="col">prices-today</th>
+          <th scope="col">percentage</th>
           <th scope="col">multiple</th>
         </tr>
         <tr>
           <th scope="col">--------</th>
           <th scope="col">--------------</th>
           <th scope="col">--------------</th>
+          <th scope="col">------------</th>
           <th scope="col">----------</th>
         </tr>
       </thead>
@@ -215,7 +241,7 @@ const renderTable = () => {
   `;
 
   for (var i = 0; i < data.length; i++) {
-    content += _newRow(data[i][0], data[i][1], data[i][2], data[i][3], _chooseColor(data[i]));
+    content += _newRow(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4], _chooseColor(data[i]));
   }
 
   content += "</tbody></table>";
@@ -232,7 +258,7 @@ $(async () => {
 
   for (currency of [
     "Usd", "Cad", "Gbp", "Aud", "Eur", "Chf", "Jpy", "Krw", "Cny",
-    "Sgd", "Inr", "Rub", "Btc", "Eth", "Rune"
+    "Sgd", "Inr", "Rub", "Btc", "Eth", "Rune", "Dot"
   ]) {
     $(`#currency${currency}`).click(function () {
       console.log(`Currency selected: ${$(this).val()}`);
@@ -275,13 +301,27 @@ $(async () => {
     .then(_hideSpinner);
   });
 
-  $("#defiTokensBtn").click(async (event) => {
+  $("#topDefiTokensBtn").click(async (event) => {
     event.preventDefault();
 
     $("#tableContainer").show();
     $("#table2Container").hide();
+    $("#table3Container").hide();
 
     coins = await $.get("js/coins.json");
+    console.log("Fetched a list of coins\n", coins);
+
+    tableContainer = $("#tableContainer");
+  });
+
+  $("#defiTokensBtn").click(async (event) => {
+    event.preventDefault();
+
+    $("#tableContainer").hide();
+    $("#table2Container").show();
+    $("#table3Container").hide();
+
+    coins = await $.get("js/coins2.json");
     console.log("Fetched a list of coins\n", coins);
 
     tableContainer = $("#tableContainer");
@@ -291,9 +331,10 @@ $(async () => {
     event.preventDefault();
 
     $("#tableContainer").hide();
-    $("#table2Container").show();
+    $("#table2Container").hide();
+    $("#table3Container").show();
 
-    coins = await $.get("js/coins2.json");
+    coins = await $.get("js/coins3.json");
     console.log("Fetched a list of coins\n", coins);
 
     tableContainer = $("#table2Container");
@@ -301,5 +342,5 @@ $(async () => {
 
   $("#currencyUsd").trigger("click");
   $("#timespan90d").trigger("click");
-  $("#defiTokensBtn").trigger("click");
+  $("#topDefiTokensBtn").trigger("click");
 });
