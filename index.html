@@ -41,8 +41,13 @@
 
     <div class="container-fluid max-width-1200px text-center">
       <div class="row mt-5 mb-4 text-start">
-        <div class="col-12">
+        <div class="col-6">
           <h3>> did my alts outperform ETH?<span id="blinkingCursor">_</span></h3>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-outline-light" id="topDefiTokensBtn">defi blue chips</button>
+          <button class="btn btn-outline-light" id="defiTokensBtn">defi small caps</button>
+          <button class="btn btn-outline-light" id="smartContractPlatformsBtn">"ETH killers"</button>
         </div>
       </div>
       <div class="row">
@@ -110,12 +115,12 @@
                   <label class="form-check-label" for="currencyEth">eth</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyRune" value="rune">
-                  <label class="form-check-label" for="currencyRune">rune</label>
-                </div>
-                <div class="form-check form-check-inline">
                   <input class="form-check-input mb-3" type="radio" name="currency" id="currencyDot" value="dot">
                   <label class="form-check-label" for="currencyRune">dot</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input mb-3" type="radio" name="currency" id="currencyRune" value="rune">
+                  <label class="form-check-label" for="currencyRune">rune</label>
                 </div>
               </td>
             </tr>
@@ -201,20 +206,15 @@
           </p>
         </div>
         <div class="col-8">
-          <div class="mb-5">
-            <button class="btn btn-outline-light" id="topDefiTokensBtn">top-20 defi coins</button>
-            <button class="btn btn-outline-light" id="defiTokensBtn">more defi coins</button>
-            <button class="btn btn-outline-light" id="smartContractPlatformsBtn">layer-1 coins</button>
-          </div>
-          <div id="tableContainer">
+          <div id="tableContainer" class="mt-4">
             <br><br><br><br>
             results will be displayed here
           </div>
-          <div style="display: none;" id="table2Container">
+          <div style="display: none;" id="table2Container" class="mt-4">
             <br><br><br><br>
             results will be displayed here
           </div>
-          <div style="display: none;" id="table3Container">
+          <div style="display: none;" id="table3Container" class="mt-4">
             <br><br><br><br>
             results will be displayed here
           </div>

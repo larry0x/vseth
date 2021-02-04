@@ -307,6 +307,10 @@ $(async () => {
     $("#table2Container").hide();
     $("#table3Container").hide();
 
+    $("#topDefiTokensBtn").addClass("active");
+    $("#defiTokensBtn").removeClass("active");
+    $("#smartContractPlatformsBtn").removeClass("active");
+
     coins = await $.get("js/coins.json");
     console.log("Fetched a list of coins\n", coins);
 
@@ -320,10 +324,14 @@ $(async () => {
     $("#table2Container").show();
     $("#table3Container").hide();
 
+    $("#topDefiTokensBtn").removeClass("active");
+    $("#defiTokensBtn").addClass("active");
+    $("#smartContractPlatformsBtn").removeClass("active");
+
     coins = await $.get("js/coins2.json");
     console.log("Fetched a list of coins\n", coins);
 
-    tableContainer = $("#tableContainer");
+    tableContainer = $("#table2Container");
   });
 
   $("#smartContractPlatformsBtn").click(async (event) => {
@@ -333,10 +341,14 @@ $(async () => {
     $("#table2Container").hide();
     $("#table3Container").show();
 
+    $("#topDefiTokensBtn").removeClass("active");
+    $("#defiTokensBtn").removeClass("active");
+    $("#smartContractPlatformsBtn").addClass("active");
+
     coins = await $.get("js/coins3.json");
     console.log("Fetched a list of coins\n", coins);
 
-    tableContainer = $("#table2Container");
+    tableContainer = $("#table3Container");
   });
 
   $("#currencyUsd").trigger("click");
