@@ -26,5 +26,7 @@
   { "id": "tomochain", "symbol": "TOMO" },
   { "id": "secret", "symbol": "SCRT" },
   { "id": "komodo", "symbol": "KMD" },
-  { "id": "fantom", "symbol": "FTM" }
+  { "id": "fantom", "symbol": "FTM" },
+  { "id": "binancecoin", "symbol": "BNB" },
+  { "id": "telos", "symbol": "TLOS" }
 ]
