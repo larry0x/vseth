@@ -3,50 +3,62 @@
     <Sidebar />
 
     <div :class="$store.state.sidebarShown ? 'container blue' : 'container'" id="main">
-      <table
-        class="table table-hover"
-        v-if="$store.state.counter == $store.state.selectedCoins.length"
-      >
-        <thead>
-          <tr>
-            <th scope="col">asset</th>
-            <th scope="col">symbol</th>
-            <th scope="col">past price</th>
-            <th scope="col">current price</th>
-            <th scope="col">percentage</th>
-            <th scope="col">multiple</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(coin, index) in $store.state.selectedCoins"
-            :key="index"
-            :class="'align-middle' + getColor(coin)"
-          >
-            <td>
-              <div class="d-flex align-items-center">
-                <CoinIcon :iconUrl="coin.iconUrl" class="me-3" />
-                <div>{{ coin.name }}</div>
-              </div>
-            </td>
-            <td>{{ coin.symbol }}</td>
-            <td>
-              {{ coin.priceFormatted("historical", $store.state.currency.symbol) }}
-            </td>
-            <td>
-              {{ coin.priceFormatted("current", $store.state.currency.symbol) }}
-            </td>
-            <td>
-              {{ coin.percentageFormatted() }}
-            </td>
-            <td>
-              {{ coin.multipleFormatted() }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div v-if="$store.state.counter == $store.state.selectedCoins.length">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">asset</th>
+              <th scope="col">symbol</th>
+              <th scope="col">past price</th>
+              <th scope="col">current price</th>
+              <th scope="col">percentage</th>
+              <th scope="col">multiple</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(coin, index) in $store.state.selectedCoins"
+              :key="index"
+              :class="'align-middle' + getColor(coin)"
+            >
+              <td>
+                <div class="d-flex align-items-center">
+                  <CoinIcon :iconUrl="coin.iconUrl" class="me-3" />
+                  <div>
+                    {{ coin.name }}
+                    <span
+                      class="text-danger"
+                      v-if="coin.launchDate && coin.launchDate > $store.state.startDate"
+                    >
+                      (*)
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ coin.symbol }}</td>
+              <td>
+                {{ coin.priceFormatted("historical", $store.state.currency.symbol) }}
+              </td>
+              <td>
+                {{ coin.priceFormatted("current", $store.state.currency.symbol) }}
+              </td>
+              <td>
+                {{ coin.percentageFormatted() }}
+              </td>
+              <td>
+                {{ coin.multipleFormatted() }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <span class="text-danger">(*)</span> These coins did not exist at the starting
+          date selected. Instead, the coins' launch prices (the earliest available prices
+          on CoinGecko) are used here.
+        </p>
+      </div>
 
-      <div class="ps-5 pe-5">
+      <!-- <div class="ps-5 pe-5">
         <h3 class="mt-5 mb-3">README</h3>
         <p>
           This site was created to test the thesis that
@@ -64,11 +76,7 @@
           by more than 50% are considered <b>"losers"</b> and colored
           <span class="text-danger">red</span>.
         </p>
-        <p>
-          <b>Note:</b> If the selected starting date is too early that a coin did not
-          exist yet, we use the coin's earliest available price on CoinGecko.
-        </p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

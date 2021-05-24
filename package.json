@@ -1,24 +1,24 @@
 {
-  "name": "up-in-eth",
+  "name": "vseth",
   "version": "2.0.0",
-  "description": "Did my DeFi coins outperform ETH?",
   "scripts": {
     "build": "vue-cli-service build",
     "serve": "vue-cli-service serve"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/0xlarry/up-in-eth.git"
+    "url": "git+https://github.com/0xlarry/vseth.git"
   },
   "author": "0x_larry <0x_larry@protonmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/0xlarry/up-in-eth/issues"
+    "url": "https://github.com/0xlarry/vseth/issues"
   },
-  "homepage": "https://github.com/0xlarry/up-in-eth#readme",
+  "homepage": "https://github.com/0xlarry/vseth#readme",
   "dependencies": {
     "@vue/compiler-sfc": "^3.0.11",
     "axios": "^0.21.1",
+    "axios-retry": "^3.1.9",
     "bootstrap": "^5.0.1",
     "coingecko-api-v3": "^0.0.11",
     "vue": "^3.0.11",

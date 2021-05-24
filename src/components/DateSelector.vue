@@ -75,7 +75,7 @@ const dates: { [key: string]: Date } = {
   "30d": new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000),
   "90d": new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000),
   "180d": new Date(today.getTime() - 180 * 24 * 60 * 60 * 1000),
-  "365d": new Date(today.getTime() - 265 * 24 * 60 * 60 * 1000),
+  "365d": new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000),
   ytd: new Date(today.getFullYear(), 0, 1),
 };
 

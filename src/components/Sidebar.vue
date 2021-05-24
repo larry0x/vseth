@@ -75,9 +75,15 @@
 import { defineComponent } from "vue";
 import { Coin } from "@/types";
 import axios from "axios";
+import axiosRetry from "axios-retry";
 import CoinSelector from "@/components/CoinSelector.vue";
 import CurrencySelector from "@/components/CurrencySelector.vue";
 import DateSelector from "@/components/DateSelector.vue";
+
+axiosRetry(axios, {
+  retries: 3,
+  retryDelay: axiosRetry.exponentialDelay,
+});
 
 const _formatDate = (date: Date) => {
   let year = date.getFullYear();
