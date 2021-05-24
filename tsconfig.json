@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@router:/*": ["src/router/*"],
+      "@scripts/*": ["src/scripts/*"],
+      "@store/*": ["src/store/*"],
+      "@types/*": ["src/types/*"],
+      "@views/*": ["src/views/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "files": ["src/vue-shim.d.ts", "src/vuex-shim.d.ts"],
+  "exclude": ["node_modules"]
+}
