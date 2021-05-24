@@ -122,6 +122,9 @@ const allCoins = [
     new Date("2020-10-23")
   ),
   new Coin("meta", "MTA", "mStable", "icons/mta.png", new Date("2020-07-19")),
+  new Coin("haven", "XHV", "Haven", "icons/xhv.png"),
+  new Coin("kusama", "KSM", "Kusama", "icons/ksm.jpeg"),
+  new Coin("fantom", "FTM", "Fantom", "icons/ftm.png"),
 ];
 
 console.log("Total number of coins:", allCoins.length);
