@@ -66,7 +66,7 @@ const allCoins = [
     "icons/alpha.png",
     new Date("2020-10-11")
   ),
-  new Coin("alchemix", "ALCX", "Alchemix", "icons/alcx.png", new Date("2021-02-29")),
+  new Coin("alchemix", "ALCX", "Alchemix", "icons/alcx.png", new Date("2021-03-01")),
   new Coin("serum", "SRM", "Serum", "icons/srm.png", new Date("2020-08-12")),
   new Coin(
     "anchor-protocol",
