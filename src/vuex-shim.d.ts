@@ -3,6 +3,7 @@ import { Coin } from "@/types";
 
 declare module "@vue/runtime-core" {
   interface State {
+    overlayShown: boolean;
     sidebarShown: boolean;
     currency: {
       id: string;

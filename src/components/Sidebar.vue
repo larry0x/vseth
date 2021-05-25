@@ -5,6 +5,27 @@
     :style="$store.state.sidebarShown ? {} : { width: '5rem!important' }"
   >
     <transition name="fade">
+      <div id="overlayContainer" v-if="overlayShown">
+        <div id="progress" class="progress w-100">
+          <div
+            ref="progressBar"
+            id="progressBar"
+            class="progress-bar progress-bar-striped progress-bar-animated fs-3"
+            role="progressbar"
+          ></div>
+        </div>
+        <div
+          ref="overlayErrorMsg"
+          id="overlayErrorMsg"
+          class="text-center text-danger fs-5 pt-3 pb-3 px-2 mt-3 bg-light d-none"
+        >
+          If you request price data too frequently, CoinGecko may temporarily ban your IP
+          address. Wait a minute and try again.
+        </div>
+      </div>
+    </transition>
+
+    <transition name="fade">
       <div id="sidebarExtended" v-if="showExtended">
         <div class="d-flex align-items-center mt-2">
           <svg
@@ -97,6 +118,8 @@ export default defineComponent({
   components: { CoinSelector, CurrencySelector, DateSelector },
   data() {
     return {
+      overlayShown: false,
+      overlayError: false,
       showExtended: true,
       showCollapsed: false,
     };
@@ -119,6 +142,41 @@ export default defineComponent({
       }, 200);
 
       console.log("Sidebar hidden");
+    },
+    showOverlay() {
+      this.overlayShown = true;
+      console.log("Overlay shown");
+    },
+    hideOverlay() {
+      this.overlayShown = false;
+      console.log("Overlay hidden");
+    },
+    updateProgreeBar() {
+      if (!this.overlayError) {
+        const progressBar = this.$refs.progressBar as HTMLElement;
+        const percentage =
+          Math.ceil(
+            (100 * this.$store.state.counter) / this.$store.state.selectedCoins.length
+          ).toString() + "%";
+
+        progressBar.innerHTML = percentage;
+        progressBar.style.width = percentage;
+
+        console.log("Updated progress bar:", percentage);
+      }
+    },
+    setProgressBarError() {
+      const progressBar = this.$refs.progressBar as HTMLElement;
+      progressBar.innerHTML = "ERROR";
+      progressBar.style.width = "100%";
+      progressBar.classList.add("bg-danger");
+      progressBar.classList.remove("progress-bar-striped");
+      progressBar.classList.remove("progress-bar-animated");
+
+      const errorMsg = this.$refs.overlayErrorMsg as HTMLElement;
+      errorMsg.classList.remove("d-none");
+
+      this.overlayError = true;
     },
     _getCoinById(id: string) {
       return this.$store.state.allCoins.find((coin) => {
@@ -161,7 +219,9 @@ export default defineComponent({
     },
     fetchHistoricalPrices() {
       const currency = this.$store.state.currency;
+
       this.$store.state.counter = 0;
+      this.showOverlay();
 
       this.$store.state.selectedCoins.forEach((coin) => {
         // for Aave, we fetch the price of LEND, and multiply it by 100
@@ -202,13 +262,23 @@ export default defineComponent({
             }
 
             this.$store.state.counter += 1;
+            this.updateProgreeBar();
+
             if (this.$store.state.counter === this.$store.state.selectedCoins.length) {
               this.hideSidebar();
+
+              setTimeout(() => {
+                this.hideOverlay();
+              }, 200);
+
               console.log("Finished fetching historical prices!");
 
               // Once finished, sort all coins by performance
               this.sortCoinsByPerformance();
             }
+          })
+          .catch(() => {
+            this.setProgressBarError();
           });
       });
     },
@@ -222,9 +292,6 @@ export default defineComponent({
       });
 
       console.log("Sorted coins by performance!");
-      this.$store.state.selectedCoins.forEach((coin, index) => {
-        console.log(`${index + 1} ${coin.symbol} ${coin.percentage()}%`);
-      });
     },
   },
   computed: {
@@ -263,6 +330,36 @@ export default defineComponent({
   box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.19), 6px 0px 6px 0px rgba(0, 0, 0, 0.23);
 }
 
+#overlayContainer {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 35vh;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  background-color: rgba(245, 245, 245, 0.7);
+  z-index: 99999;
+  text-align: center;
+  transition: all 0.25s;
+}
+
+#progress {
+  height: 5rem;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 20px 70px 4px;
+}
+
+#progressBar {
+  width: 0%;
+}
+
+#overlayErrorMsg {
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 20px 70px 4px;
+}
+
 #footer {
   position: absolute;
   left: 16.5rem;
@@ -287,6 +384,14 @@ svg {
 svg:hover {
   fill: #d1d5da;
   cursor: pointer;
+}
+
+.fade-enter-active {
+  transition: opacity 0.2s linear;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .sidebar-toggler {

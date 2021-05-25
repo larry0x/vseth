@@ -58,7 +58,10 @@
         </p>
       </div>
 
-      <!-- <div class="ps-5 pe-5">
+      <div
+        v-if="$store.state.counter != $store.state.selectedCoins.length"
+        class="ps-5 pe-5"
+      >
         <h3 class="mt-5 mb-3">README</h3>
         <p>
           This site was created to test the thesis that
@@ -76,7 +79,7 @@
           by more than 50% are considered <b>"losers"</b> and colored
           <span class="text-danger">red</span>.
         </p>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>

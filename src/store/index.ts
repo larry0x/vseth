@@ -131,6 +131,7 @@ console.log("Total number of coins:", allCoins.length);
 
 export default createStore({
   state: {
+    overlayShown: false,
     sidebarShown: true,
     currency: {
       id: "",
