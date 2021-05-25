@@ -9,7 +9,7 @@ const allCoins = [
   new Coin("polkadot", "DOT", "Polkadot", "icons/dot.png", new Date("2020-08-20")),
   new Coin("solana", "SOL", "Solana", "icons/sol.png"),
   new Coin("cosmos", "ATOM", "Cosmos", "icons/atom.png"),
-  new Coin("matic-network", "MATIC", "Polygon", "icons/matic.png"),
+  new Coin("matic-network", "MATIC", "Polygon", "icons/matic-polygon.png"),
   new Coin("dogecoin", "DOGE", "Dogecoin", "icons/doge.jpeg"),
   new Coin("terra-luna", "LUNA", "Terra", "icons/luna.png"),
   new Coin("thorchain", "RUNE", "THORChain", "icons/rune.png"),

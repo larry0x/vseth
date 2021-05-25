@@ -62,7 +62,7 @@ export class Coin {
 
   percentageFormatted() {
     let percentage = this.percentage();
-    return percentage
+    return percentage || percentage == 0
       ? (percentage >= 0 ? "+" : "–") + Math.abs(percentage).toFixed(0) + "%"
       : null;
   }

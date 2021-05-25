@@ -98,25 +98,19 @@ export default defineComponent({
       const ethereum = this.$store.state.selectedCoins.find((coin) => {
         return coin.id === "ethereum";
       }) as Coin;
-      return ethereum.percentage();
+      return ethereum.multiple();
     },
   },
   methods: {
     getColor(coin: Coin) {
+      if (!(this.benchmark || this.benchmark == 0)) return "";
+
+      const multiple = coin.multiple();
+
       if (coin.id === "ethereum") return " table-primary";
-      if (!this.benchmark) return "";
-
-      const percentage = coin.percentage();
-      console.log(coin.id, percentage, this.benchmark);
-      if (!percentage) return " table-secondary";
-
-      const winnerCutoff =
-        this.benchmark >= 0 ? this.benchmark * 1.5 : this.benchmark * 0.5;
-      if (percentage >= winnerCutoff) return " table-success";
-
-      const loserCutoff =
-        this.benchmark >= 0 ? this.benchmark * 0.5 : this.benchmark * 1.5;
-      if (percentage < loserCutoff) return " table-danger";
+      else if (!multiple) return " table-secondary";
+      else if (multiple >= this.benchmark * 1.5) return " table-success";
+      else if (multiple < this.benchmark * 0.5) return " table-danger";
 
       return "";
     },
