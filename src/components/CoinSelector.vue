@@ -8,7 +8,7 @@
         <span class="interactive-text" @click="deselectAll()">deselect all</span>
       </div>
     </div>
-    <div class="row px-2 scroll-box">
+    <div class="row px-2">
       <div
         class="col-4 px-1 mb-2"
         v-for="(coin, index) in $store.state.allCoins"
@@ -118,23 +118,5 @@ export default defineComponent({
 .interactive-text:hover {
   color: #d1d5da;
   cursor: pointer;
-}
-
-.scroll-box {
-  max-height: calc(100vh - 50rem);
-  overflow-y: auto;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #6c757d;
 }
 </style>
