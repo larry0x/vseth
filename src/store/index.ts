@@ -84,13 +84,7 @@ const allCoins = [
     "icons/perp.jpg",
     new Date("2020-09-10")
   ),
-  new Coin(
-    "badger-dao",
-    "BADGER",
-    "Badger DAO",
-    "icons/badger.png",
-    new Date("2020-12-05")
-  ),
+  new Coin("badger-dao", "BADGER", "Badger", "icons/badger.png", new Date("2020-12-05")),
   new Coin("rook", "ROOK", "KeeperDAO", "icons/rook.png", new Date("2020-11-09")),
   new Coin("barnbridge", "BOND", "BarnBridge", "icons/bond.png", new Date("2020-10-27")),
   new Coin("cream-2", "CREAM", "C.R.E.A.M.", "icons/cream.png", new Date("2020-08-06")),

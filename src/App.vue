@@ -7,6 +7,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th scope="col">#</th>
               <th scope="col">asset</th>
               <th scope="col">symbol</th>
               <th scope="col">past price</th>
@@ -21,6 +22,9 @@
               :key="index"
               :class="'align-middle' + getColor(coin)"
             >
+              <td>
+                <b>{{ index + 1 }}</b>
+              </td>
               <td>
                 <div class="d-flex align-items-center">
                   <CoinIcon :iconUrl="coin.iconUrl" class="me-3" />
