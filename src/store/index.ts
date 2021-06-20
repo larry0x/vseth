@@ -119,6 +119,16 @@ const allCoins = [
   new Coin("haven", "XHV", "Haven", "icons/xhv.png"),
   new Coin("kusama", "KSM", "Kusama", "icons/ksm.jpeg"),
   new Coin("fantom", "FTM", "Fantom", "icons/ftm.png"),
+  // new Coin("olympus", "OHM", "Olympus", "icons/ohm.png", new Date("")),
+  new Coin(
+    "wootrade-network",
+    "WOO",
+    "Wootrade Network",
+    "icons/woo.jpeg",
+    new Date("2020-10-31")
+  ),
+  new Coin("gitcoin", "GTC", "Gitcoin", "icons/gtc.png", new Date("2021-05-27")),
+  new Coin("api3", "API3", "API3", "icons/api3.jpeg", new Date("2020-12-01")),
 ];
 
 console.log("Total number of coins:", allCoins.length);
